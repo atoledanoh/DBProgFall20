@@ -46,7 +46,7 @@ namespace TrackerUI
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.lstTeamMembers = new System.Windows.Forms.ListBox();
-            this.btnDeleteSelectedMember = new System.Windows.Forms.Button();
+            this.btnRemoveSelectedMember = new System.Windows.Forms.Button();
             this.btnCreateTeam = new System.Windows.Forms.Button();
             this.grpAddNewMember.SuspendLayout();
             this.SuspendLayout();
@@ -86,6 +86,7 @@ namespace TrackerUI
             this.btnAddTeamMember.TabIndex = 12;
             this.btnAddTeamMember.Text = "Add Member";
             this.btnAddTeamMember.UseVisualStyleBackColor = true;
+            this.btnAddTeamMember.Click += new System.EventHandler(this.btnAddTeamMember_Click);
             // 
             // cboSelectTeamMember
             // 
@@ -131,6 +132,7 @@ namespace TrackerUI
             this.btnCreateMember.TabIndex = 14;
             this.btnCreateMember.Text = "Create Member";
             this.btnCreateMember.UseVisualStyleBackColor = true;
+            this.btnCreateMember.Click += new System.EventHandler(this.btnCreateMember_Click);
             // 
             // txtPhoneNumber
             // 
@@ -205,15 +207,16 @@ namespace TrackerUI
             this.lstTeamMembers.Size = new System.Drawing.Size(327, 349);
             this.lstTeamMembers.TabIndex = 14;
             // 
-            // btnDeleteSelectedMember
+            // btnRemoveSelectedMember
             // 
-            this.btnDeleteSelectedMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteSelectedMember.Location = new System.Drawing.Point(645, 103);
-            this.btnDeleteSelectedMember.Name = "btnDeleteSelectedMember";
-            this.btnDeleteSelectedMember.Size = new System.Drawing.Size(138, 44);
-            this.btnDeleteSelectedMember.TabIndex = 15;
-            this.btnDeleteSelectedMember.Text = "Delete Selected";
-            this.btnDeleteSelectedMember.UseVisualStyleBackColor = true;
+            this.btnRemoveSelectedMember.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveSelectedMember.Location = new System.Drawing.Point(629, 103);
+            this.btnRemoveSelectedMember.Name = "btnRemoveSelectedMember";
+            this.btnRemoveSelectedMember.Size = new System.Drawing.Size(154, 44);
+            this.btnRemoveSelectedMember.TabIndex = 15;
+            this.btnRemoveSelectedMember.Text = "Remove Selected";
+            this.btnRemoveSelectedMember.UseVisualStyleBackColor = true;
+            this.btnRemoveSelectedMember.Click += new System.EventHandler(this.btnRemoveSelectedMember_Click);
             // 
             // btnCreateTeam
             // 
@@ -232,7 +235,7 @@ namespace TrackerUI
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(840, 650);
             this.Controls.Add(this.btnCreateTeam);
-            this.Controls.Add(this.btnDeleteSelectedMember);
+            this.Controls.Add(this.btnRemoveSelectedMember);
             this.Controls.Add(this.lstTeamMembers);
             this.Controls.Add(this.grpAddNewMember);
             this.Controls.Add(this.btnAddTeamMember);
@@ -271,7 +274,7 @@ namespace TrackerUI
         private System.Windows.Forms.TextBox txtFirstName;
         private System.Windows.Forms.Label lblFirstName;
         private System.Windows.Forms.ListBox lstTeamMembers;
-        private System.Windows.Forms.Button btnDeleteSelectedMember;
+        private System.Windows.Forms.Button btnRemoveSelectedMember;
         private System.Windows.Forms.Button btnCreateTeam;
     }
 }
