@@ -20,8 +20,9 @@ namespace TrackerUI
             //initialize the database connections
             TrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.Sql);
 
-            //todo restore original form
-            Application.Run(new CreateTeamForm());
+            //TODO restore original form
+            //Application.Run(new CreateTeamForm());
+            Application.Run(new CreateTournamentForm());
             //Application.Run(new TournamentDashboardForm());
         }
     }

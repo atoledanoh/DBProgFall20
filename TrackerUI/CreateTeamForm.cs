@@ -14,7 +14,7 @@ namespace TrackerUI
 {
     public partial class CreateTeamForm : Form
     {
-        private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetAllPerson();
+        private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPersonAll();
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
         public CreateTeamForm()
         {
@@ -37,7 +37,7 @@ namespace TrackerUI
 
         private void WireUpLists()
         {
-            //todo - find a better refresh
+            //TODO - find a better refresh
             cboSelectTeamMember.DataSource = null;
             cboSelectTeamMember.DataSource = availableTeamMembers;
             cboSelectTeamMember.DisplayMember = "FullName";
@@ -59,9 +59,9 @@ namespace TrackerUI
                 p.PhoneNumber = txtPhoneNumber.Text;
 
                 p = GlobalConfig.Connection.CreatePerson(p);
-                
+
                 selectedTeamMembers.Add(p);
-                
+
                 WireUpLists();
 
                 txtFirstName.Text = "";
@@ -77,7 +77,7 @@ namespace TrackerUI
 
         private bool ValidateForm()
         {
-            //todo - review validation
+            //TODO - review validation
             if (txtFirstName.Text.Length == 0)
             {
                 return false;
@@ -123,6 +123,18 @@ namespace TrackerUI
 
                 WireUpLists();
             }
+        }
+
+        private void btnCreateTeam_Click(object sender, EventArgs e)
+        {
+            TeamModel t = new TeamModel();
+
+            t.TeamName = txtTeamName.Text;
+            t.TeamMembers = selectedTeamMembers;
+
+            t = GlobalConfig.Connection.CreateTeam(t);
+
+            //TODO - close or reset form
         }
     }
 }

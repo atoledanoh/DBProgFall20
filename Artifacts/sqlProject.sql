@@ -8,7 +8,7 @@ GO
 USE Tournaments;
 
 CREATE TABLE Prizes(
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	PRIMARY KEY[Id] [int] IDENTITY(1,1) NOT NULL,
 	[PlaceNumber] [int] NOT NULL,
 	[PlaceName] [varchar](50) NOT NULL,
 	[PrizeAmount] [money] NOT NULL,
@@ -32,6 +32,13 @@ CREATE TABLE People(
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+CREATE TABLE TeamMembers(
+	Id int IDENTITY NOT NULL,
+	TeamId int FOREIGN KEY REFERENCES Teams(Id),
+	PersonId int FOREIGN KEY REFERENCES People(Id),
+	PRIMARY KEY (Id)
+);
 
 --------------------------------------
 --TESTING INSERTS SECTION
@@ -71,6 +78,7 @@ BEGIN
 END
 GO
 
+--------------------------------------
 CREATE PROCEDURE dbo.spPeople_Insert
 	@FirstName NVARCHAR(50),
 	@LastName NVARCHAR(50),
@@ -86,10 +94,55 @@ BEGIN
 END
 GO
 
+--------------------------------------
 CREATE PROCEDURE dbo.spPeople_GetAll
 AS
 BEGIN
 	SET NOCOUNT ON;
     SELECT * FROM People;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE spTeams_Insert
+	@TeamName varchar(100),
+	@Id int = 0 output
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	insert into dbo.Teams (TeamName)
+	values (@TeamName);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE spTeamMembers_Insert
+	@TeamId int,
+	@PersonId int,
+	@Id int = 0 output
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	insert into dbo.TeamMembers(TeamId, PersonId)
+	values (@TeamId, @PersonId);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE spTeamMembers_GetByTeam
+	@TeamId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+	select p.*
+	from dbo.TeamMembers m
+	inner join dbo.People p on m.PersonId = p.Id
+	where m.TeamId = @TeamId;
 END
 GO

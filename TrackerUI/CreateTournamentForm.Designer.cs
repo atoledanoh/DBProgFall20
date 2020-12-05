@@ -39,8 +39,8 @@ namespace TrackerUI
             this.lnkCreateNewTeam = new System.Windows.Forms.LinkLabel();
             this.btnAddTeam = new System.Windows.Forms.Button();
             this.btnCreatePrize = new System.Windows.Forms.Button();
-            this.lstTournamentPlayers = new System.Windows.Forms.ListBox();
-            this.lblTournamentPlayers = new System.Windows.Forms.Label();
+            this.lstTournamentTeams = new System.Windows.Forms.ListBox();
+            this.lblTournamentTeams = new System.Windows.Forms.Label();
             this.btnDeleteSelectedPlayer = new System.Windows.Forms.Button();
             this.btnDeleteSelectedPrize = new System.Windows.Forms.Button();
             this.lblTournamentPrizes = new System.Windows.Forms.Label();
@@ -128,6 +128,7 @@ namespace TrackerUI
             this.btnAddTeam.TabIndex = 8;
             this.btnAddTeam.Text = "Add Team";
             this.btnAddTeam.UseVisualStyleBackColor = true;
+            this.btnAddTeam.Click += new System.EventHandler(this.btnAddTeam_Click);
             // 
             // btnCreatePrize
             // 
@@ -138,25 +139,26 @@ namespace TrackerUI
             this.btnCreatePrize.TabIndex = 9;
             this.btnCreatePrize.Text = "Create Prize";
             this.btnCreatePrize.UseVisualStyleBackColor = true;
+            this.btnCreatePrize.Click += new System.EventHandler(this.btnCreatePrize_Click);
             // 
-            // lstTournamentPlayers
+            // lstTournamentTeams
             // 
-            this.lstTournamentPlayers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstTournamentPlayers.FormattingEnabled = true;
-            this.lstTournamentPlayers.ItemHeight = 26;
-            this.lstTournamentPlayers.Location = new System.Drawing.Point(416, 93);
-            this.lstTournamentPlayers.Name = "lstTournamentPlayers";
-            this.lstTournamentPlayers.Size = new System.Drawing.Size(330, 158);
-            this.lstTournamentPlayers.TabIndex = 10;
+            this.lstTournamentTeams.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstTournamentTeams.FormattingEnabled = true;
+            this.lstTournamentTeams.ItemHeight = 26;
+            this.lstTournamentTeams.Location = new System.Drawing.Point(416, 93);
+            this.lstTournamentTeams.Name = "lstTournamentTeams";
+            this.lstTournamentTeams.Size = new System.Drawing.Size(330, 158);
+            this.lstTournamentTeams.TabIndex = 10;
             // 
-            // lblTournamentPlayers
+            // lblTournamentTeams
             // 
-            this.lblTournamentPlayers.AutoSize = true;
-            this.lblTournamentPlayers.Location = new System.Drawing.Point(411, 44);
-            this.lblTournamentPlayers.Name = "lblTournamentPlayers";
-            this.lblTournamentPlayers.Size = new System.Drawing.Size(136, 26);
-            this.lblTournamentPlayers.TabIndex = 11;
-            this.lblTournamentPlayers.Text = "Team / Players";
+            this.lblTournamentTeams.AutoSize = true;
+            this.lblTournamentTeams.Location = new System.Drawing.Point(411, 44);
+            this.lblTournamentTeams.Name = "lblTournamentTeams";
+            this.lblTournamentTeams.Size = new System.Drawing.Size(65, 26);
+            this.lblTournamentTeams.TabIndex = 11;
+            this.lblTournamentTeams.Text = "Teams";
             // 
             // btnDeleteSelectedPlayer
             // 
@@ -183,9 +185,9 @@ namespace TrackerUI
             this.lblTournamentPrizes.AutoSize = true;
             this.lblTournamentPrizes.Location = new System.Drawing.Point(411, 299);
             this.lblTournamentPrizes.Name = "lblTournamentPrizes";
-            this.lblTournamentPrizes.Size = new System.Drawing.Size(136, 26);
+            this.lblTournamentPrizes.Size = new System.Drawing.Size(61, 26);
             this.lblTournamentPrizes.TabIndex = 14;
-            this.lblTournamentPrizes.Text = "Team / Players";
+            this.lblTournamentPrizes.Text = "Prizes";
             // 
             // lstPrizes
             // 
@@ -218,8 +220,8 @@ namespace TrackerUI
             this.Controls.Add(this.lblTournamentPrizes);
             this.Controls.Add(this.lstPrizes);
             this.Controls.Add(this.btnDeleteSelectedPlayer);
-            this.Controls.Add(this.lblTournamentPlayers);
-            this.Controls.Add(this.lstTournamentPlayers);
+            this.Controls.Add(this.lblTournamentTeams);
+            this.Controls.Add(this.lstTournamentTeams);
             this.Controls.Add(this.btnCreatePrize);
             this.Controls.Add(this.btnAddTeam);
             this.Controls.Add(this.lnkCreateNewTeam);
@@ -251,8 +253,8 @@ namespace TrackerUI
         private System.Windows.Forms.LinkLabel lnkCreateNewTeam;
         private System.Windows.Forms.Button btnAddTeam;
         private System.Windows.Forms.Button btnCreatePrize;
-        private System.Windows.Forms.ListBox lstTournamentPlayers;
-        private System.Windows.Forms.Label lblTournamentPlayers;
+        private System.Windows.Forms.ListBox lstTournamentTeams;
+        private System.Windows.Forms.Label lblTournamentTeams;
         private System.Windows.Forms.Button btnDeleteSelectedPlayer;
         private System.Windows.Forms.Button btnDeleteSelectedPrize;
         private System.Windows.Forms.Label lblTournamentPrizes;

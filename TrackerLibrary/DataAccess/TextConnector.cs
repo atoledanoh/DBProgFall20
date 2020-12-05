@@ -21,7 +21,17 @@ namespace TrackerLibrary.DataAccess
             return model;
         }
 
-        public List<PersonModel> GetAllPerson()
+        public TeamModel CreateTeam(TeamModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<PersonModel> GetPersonAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<TeamModel> GetTeamAll()
         {
             throw new NotImplementedException();
         }
