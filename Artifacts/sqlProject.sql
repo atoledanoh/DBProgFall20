@@ -6,19 +6,18 @@ CREATE DATABASE Tournaments;
 GO
 
 USE Tournaments;
+GO
+
+USE Tournaments;
 
 CREATE TABLE Prizes(
-	PRIMARY KEY[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[PlaceNumber] [int] NOT NULL,
 	[PlaceName] [varchar](50) NOT NULL,
 	[PrizeAmount] [money] NOT NULL,
 	[PrizePercentage] [float] NOT NULL,
- CONSTRAINT [PK_Prizes] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+	PRIMARY KEY (Id)
+);
 
 CREATE TABLE People(
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -26,17 +25,58 @@ CREATE TABLE People(
 	[LastName] [varchar](50) NOT NULL,
 	[EmailAddress] [varchar](100) NULL,
 	[PhoneNumber] [varchar](20) NULL,
- CONSTRAINT [PK_People] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
+	PRIMARY KEY (Id)
+);
+
+CREATE TABLE  Teams(
+	Id int IDENTITY NOT NULL,
+	TeamName varchar(100) NOT NULL,
+	PRIMARY KEY (Id)
+);
 
 CREATE TABLE TeamMembers(
 	Id int IDENTITY NOT NULL,
 	TeamId int FOREIGN KEY REFERENCES Teams(Id),
 	PersonId int FOREIGN KEY REFERENCES People(Id),
+	PRIMARY KEY (Id)
+);
+
+CREATE TABLE Tournaments(
+	Id int IDENTITY NOT NULL,
+	TournamentName varchar(200) NOT NULL,
+	EntryFee float NOT NULL,
+	Active bit NOT NULL,
+	PRIMARY KEY (Id)
+);
+
+CREATE TABLE TournamentPrizes(
+	Id int IDENTITY NOT NULL,
+	TournamentId int FOREIGN KEY REFERENCES Tournaments(Id),
+	PrizeId int FOREIGN KEY REFERENCES Prizes(Id),
+	PRIMARY KEY (Id)
+);
+
+CREATE TABLE TournamentEntries(
+	Id int IDENTITY NOT NULL,
+	TournamentId int FOREIGN KEY REFERENCES Tournaments(Id),
+	TeamId int FOREIGN KEY REFERENCES Teams(Id),
+	PRIMARY KEY (Id)
+);
+
+CREATE TABLE Matchups(
+	Id int IDENTITY NOT NULL,
+	TournamentId int FOREIGN KEY REFERENCES Tournaments(Id),
+	WinnerId int FOREIGN KEY REFERENCES Tournaments(Id),
+	MatchupRound int NOT NULL,
+	PRIMARY KEY (Id)
+);
+
+CREATE TABLE MatchupEntries(
+	Id int IDENTITY NOT NULL,
+	MatchupId int FOREIGN KEY REFERENCES Matchups(Id),
+	ParentMatchupId int FOREIGN KEY REFERENCES Matchups(Id),
+	TeamCompetingId int FOREIGN KEY REFERENCES Teams(Id),
+	Score float,
 	PRIMARY KEY (Id)
 );
 
@@ -51,12 +91,15 @@ INSERT INTO dbo.Prizes (PlaceNumber, PlaceName, PrizeAmount, PrizePercentage)
 	(3, 'Third Place', 25, 0)
 	;
 
-INSERT INTO dbo.People(FirstName, LastName, EmailAddress, PhoneNumber)
+INSERT INTO dbo.People(FirstName, LastName)
 	VALUES
-	('Emily', 'Adkins', 'em@ad.com', '5552233'),
-	('Kiki ', 'Hamer', 'ki@ha.com', '5557799'),
-	('Lewis', 'Betts', 'le@be.com', '5551144'),
-	('Izaac', 'Gordon', 'iz@go.com', '5558866')
+	('Emily', 'Adkins'),
+	('Kiki ', 'Hamer'),
+	('Lewis', 'Betts'),
+	('Izaac', 'Gordon'),
+	('Artur', 'Grimes'),
+	('Amara', 'Nichols'),
+	('Alistair', 'Fischer')
 	;
 GO
 
@@ -119,6 +162,15 @@ END
 GO
 
 --------------------------------------
+CREATE PROCEDURE dbo.spTeams_GetAll
+AS
+BEGIN
+	SET NOCOUNT ON;
+    SELECT * FROM Teams;
+END
+GO
+
+--------------------------------------
 CREATE PROCEDURE spTeamMembers_Insert
 	@TeamId int,
 	@PersonId int,
@@ -144,5 +196,86 @@ BEGIN
 	from dbo.TeamMembers m
 	inner join dbo.People p on m.PersonId = p.Id
 	where m.TeamId = @TeamId;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spTournaments_Insert
+	@TournamentName varchar(200),
+	@EntryFee float,
+	@Id int = 0 output
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	insert into dbo.Tournaments(TournamentName,EntryFee, Active)
+	values (@TournamentName, @EntryFee, 1);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spTournamentPrizes_Insert
+	@TournamentId int,
+	@PrizeId int,
+	@id int = 0 output
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	insert into dbo.TournamentPrizes(TournamentId,PrizeId)
+	values (@TournamentId, @PrizeId);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spTournamentEntries_Insert
+	@TournamentId int,
+	@TeamId int,
+	@id int = 0 output
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	insert into dbo.TournamentEntries(TournamentId,TeamId)
+	values (@TournamentId, @TeamId);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spMatchups_Insert
+	@TournamentId int,
+	@MatchupRound int,
+	@id int = 0 output
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	insert into dbo.Matchups(TournamentId, MatchupRound)
+	values (@TournamentId, @MatchupRound);
+
+	select @Id = SCOPE_IDENTITY();
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spMatchupEntries_Insert
+	@MatchupId int,
+	@ParentMatchupId int,
+	@TeamCompetingId int,
+	@id int = 0 output
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	insert into dbo.MatchupEntries(MatchupId, ParentMatchupId, TeamCompetingId)
+	values (@MatchupId, @ParentMatchupId, @TeamCompetingId);
+
+	select @Id = SCOPE_IDENTITY();
 END
 GO

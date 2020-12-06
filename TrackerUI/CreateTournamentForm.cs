@@ -12,7 +12,7 @@ using TrackerLibrary.Models;
 
 namespace TrackerUI
 {
-    public partial class CreateTournamentForm : Form, IPrizeRequester
+    public partial class CreateTournamentForm : Form, IPrizeRequester, ITeamRequester
     {
         List<TeamModel> availableTeams = GlobalConfig.Connection.GetTeamAll();
         List<TeamModel> selectedTeams = new List<TeamModel>();
@@ -65,6 +65,68 @@ namespace TrackerUI
             //take prize model and add it to the list of selected prizes
             selectedPrizes.Add(model);
             WireUpLists();
+        }
+
+        public void TeamComplete(TeamModel model)
+        {
+            selectedTeams.Add(model);
+            WireUpLists();
+        }
+
+        private void lnkCreateNewTeam_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CreateTeamForm teamForm = new CreateTeamForm(this);
+            teamForm.Show();
+        }
+
+        private void btnRemoveSelectedPlayer_Click(object sender, EventArgs e)
+        {
+            TeamModel t = (TeamModel)lstTournamentTeams.SelectedItem;
+            if (t != null)
+            {
+                selectedTeams.Remove(t);
+                availableTeams.Add(t);
+
+                WireUpLists();
+            }
+        }
+
+        private void btnRemoveSelectedPrize_Click(object sender, EventArgs e)
+        {
+            PrizeModel p = (PrizeModel)lstPrizes.SelectedItem;
+            if (p != null)
+            {
+                selectedPrizes.Remove(p);
+
+                WireUpLists();
+            }
+        }
+
+        private void btnCreateTournament_Click(object sender, EventArgs e)
+        {
+            //validate data
+            decimal fee = 0;
+            bool isValidFee = decimal.TryParse(txtEntryFee.Text, out fee);
+
+            if (!isValidFee)
+            {
+                MessageBox.Show("Please provide fee in a valid format",
+                    "Fee not valid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //create tournament model
+            TournamentModel tournamentModel = new TournamentModel();
+            tournamentModel.TournamentName = txtTournamentName.Text;
+            tournamentModel.EntryFee = fee;
+            tournamentModel.Prizes = selectedPrizes;
+            tournamentModel.EnteredTeams = selectedTeams;
+
+            //wire up matchups
+            TournamentLogic.CreateRounds(tournamentModel);
+
+            GlobalConfig.Connection.CreateTournament(tournamentModel);
+
         }
     }
 }
