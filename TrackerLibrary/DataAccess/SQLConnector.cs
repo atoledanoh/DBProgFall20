@@ -83,6 +83,7 @@ namespace TrackerLibrary.DataAccess
                 SaveTournamentPrizes(connection, model);
                 SaveTournamentEntries(connection, model);
                 SaveTournamentRounds(connection, model);
+                TournamentLogic.UpdateTournamentResults(model);
             }
         }
 
@@ -210,18 +211,19 @@ namespace TrackerLibrary.DataAccess
                 output = connection.Query<TournamentModel>("dbo.spTournaments_GetAll").ToList();
                 var p = new DynamicParameters();
 
-                foreach (TournamentModel tournament in output)
+                foreach (TournamentModel t in output)
                 {
                     //populate prizes
                     p = new DynamicParameters();
-                    p.Add("@TournamentId", tournament.Id);
-                    tournament.Prizes = connection.Query<PrizeModel>("dbo.spPrizes_GetByTournament",
+                    p.Add("@TournamentId", t.Id);
+
+                    t.Prizes = connection.Query<PrizeModel>("dbo.spPrizes_GetByTournament",
                         p, commandType: CommandType.StoredProcedure).ToList();
 
-                    tournament.EnteredTeams = connection.Query<TeamModel>("dbo.spTeam_GetByTournament",
+                    t.EnteredTeams = connection.Query<TeamModel>("dbo.spTeam_GetByTournament",
                         p, commandType: CommandType.StoredProcedure).ToList();
 
-                    foreach (TeamModel team in tournament.EnteredTeams)
+                    foreach (TeamModel team in t.EnteredTeams)
                     {
                         //populate teams
                         p = new DynamicParameters();
@@ -233,7 +235,7 @@ namespace TrackerLibrary.DataAccess
 
                     //load rounds
                     p = new DynamicParameters();
-                    p.Add("@TournamentId", tournament.Id);
+                    p.Add("@TournamentId", t.Id);
                     List<MatchupModel> matchups = connection.Query<MatchupModel>("spMatchups_GetByTournament",
                         p, commandType: CommandType.StoredProcedure).ToList();
 
@@ -252,17 +254,17 @@ namespace TrackerLibrary.DataAccess
                             matchup.Winner = allTeams.Where(x => x.Id == matchup.WinnerId).First();
                         }
 
-                        foreach (var matchupEntry in matchup.Entries)
+                        foreach (MatchupEntryModel me in matchup.Entries)
                         {
                             //find and get the record of the team
-                            if (matchupEntry.TeamCompetingId > 0)
+                            if (me.TeamCompetingId > 0)
                             {
-                                matchupEntry.TeamCompeting = allTeams.Where(x => x.Id == matchupEntry.TeamCompetingId).First();
+                                me.TeamCompeting = allTeams.Where(x => x.Id == me.TeamCompetingId).First();
                             }
                             //find and get the record of the team
-                            if (matchupEntry.ParentMatchupId > 0)
+                            if (me.ParentMatchupId > 0)
                             {
-                                matchupEntry.ParentMatchup = matchups.Where(x => x.Id == matchupEntry.ParentMatchupId).First();
+                                me.ParentMatchup = matchups.Where(x => x.Id == me.ParentMatchupId).First();
                             }
                         }
                     }
@@ -273,13 +275,13 @@ namespace TrackerLibrary.DataAccess
                     {
                         if (matchup.MatchupRound > currentRound)
                         {
-                            tournament.Rounds.Add(currentRow);
+                            t.Rounds.Add(currentRow);
                             currentRow = new List<MatchupModel>();
                             currentRound += 1;
                         }
                         currentRow.Add(matchup);
                     }
-                    tournament.Rounds.Add(currentRow);
+                    t.Rounds.Add(currentRow);
                 }
             }
             return output;

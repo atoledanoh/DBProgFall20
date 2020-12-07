@@ -51,8 +51,8 @@ CREATE TABLE Tournaments(
 
 CREATE TABLE TournamentPrizes(
 	Id int IDENTITY NOT NULL,
-	TournamentId int FOREIGN KEY REFERENCES Tournaments(Id),
-	PrizeId int FOREIGN KEY REFERENCES Prizes(Id),
+	TournamentId int FOREIGN KEY REFERENCES Tournaments(Id) NOT NULL,
+	PrizeId int FOREIGN KEY REFERENCES Prizes(Id) NOT NULL,
 	PRIMARY KEY (Id)
 );
 

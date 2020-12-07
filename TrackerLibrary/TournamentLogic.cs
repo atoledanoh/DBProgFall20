@@ -115,8 +115,6 @@ namespace TrackerLibrary
             model.Rounds.Add(CreateFirstRound(byes, randomizedTeams));
             //create subsequent rounds
             CreateOtherRounds(model, rounds);
-
-            UpdateTournamentResults(model);
         }
 
         public static void CreateOtherRounds(TournamentModel model, int rounds)
