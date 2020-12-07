@@ -35,14 +35,6 @@ namespace TrackerUI
                 GlobalConfig.Connection.CreatePrize(model);
                 callingForm.PrizeComplete(model);
                 this.Close();
-
-                //txtPlaceName.Text = "";
-                //txtPlaceNumber.Text = "";
-                //txtPrizeAmount.Text = "0";
-                //txtPrizePercentage.Text = "0";
-
-                //TODO - comment this out
-                MessageBox.Show("everything is awesome");
             }
             else
             {

@@ -25,18 +25,6 @@ namespace TrackerUI
             WireUpLists();
         }
 
-        /// <summary>
-        /// function for testing purposes
-        /// </summary>
-        private void CreateSampleData()
-        {
-            availableTeamMembers.Add(new PersonModel { FirstName = "juana", LastName = "barrio" });
-            availableTeamMembers.Add(new PersonModel { FirstName = "maria", LastName = "ramos" });
-
-            selectedTeamMembers.Add(new PersonModel { FirstName = "petra", LastName = "flores" });
-            selectedTeamMembers.Add(new PersonModel { FirstName = "pedro", LastName = "perez" });
-        }
-
         private void WireUpLists()
         {
             //TODO - find a better refresh

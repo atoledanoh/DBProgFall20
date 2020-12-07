@@ -204,7 +204,8 @@ namespace TrackerLibrary.DataAccess
                     var p = new DynamicParameters();
                     p.Add("@TeamId", team.Id);
 
-                    team.TeamMembers = connection.Query<PersonModel>("dbo.spTeamMembers_GetByTeam", p, commandType: CommandType.StoredProcedure).ToList();
+                    team.TeamMembers = connection.Query<PersonModel>("dbo.spTeamMembers_GetByTeam",
+                        p, commandType: CommandType.StoredProcedure).ToList();
                 }
             }
             return output;
