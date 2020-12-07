@@ -36,19 +36,19 @@ namespace TrackerLibrary.Models
             get
             {
                 string output = "";
-                foreach (MatchupEntryModel matchupEntryModel in Entries)
+
+                foreach (MatchupEntryModel me in Entries)
                 {
-                    if (matchupEntryModel.TeamCompeting != null)
+                    if (me.TeamCompeting != null)
                     {
                         if (output.Length == 0)
                         {
-                            output = matchupEntryModel.TeamCompeting.TeamName;
+                            output = me.TeamCompeting.TeamName;
                         }
                         else
                         {
-                            output += $" vs. {matchupEntryModel.TeamCompeting.TeamName} ";
+                            output += $" vs. {me.TeamCompeting.TeamName} ";
                         }
-
                     }
                     else
                     {

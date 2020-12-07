@@ -65,7 +65,7 @@ CREATE TABLE TournamentEntries(
 
 CREATE TABLE Matchups(
 	Id int IDENTITY NOT NULL,
-	TournamentId int FOREIGN KEY REFERENCES Tournaments(Id),
+	TournamentId int FOREIGN KEY REFERENCES Tournaments(Id) NOT NULL,
 	WinnerId int FOREIGN KEY REFERENCES Tournaments(Id),
 	MatchupRound int NOT NULL,
 	PRIMARY KEY (Id)
@@ -73,7 +73,7 @@ CREATE TABLE Matchups(
 
 CREATE TABLE MatchupEntries(
 	Id int IDENTITY NOT NULL,
-	MatchupId int FOREIGN KEY REFERENCES Matchups(Id),
+	MatchupId int FOREIGN KEY REFERENCES Matchups(Id) NOT NULL,
 	ParentMatchupId int FOREIGN KEY REFERENCES Matchups(Id),
 	TeamCompetingId int FOREIGN KEY REFERENCES Teams(Id),
 	Score float,
@@ -338,6 +338,36 @@ BEGIN
     select *
 	from MatchupEntries
 	where MatchupId = @MatchupId;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spMatchups_Update
+	@Id int,
+	@WinnerId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	update.dbo.Matchups
+	set WinnerId = @WinnerId
+	where Id = @Id;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spMatchupEntries_Update
+	@Id int,
+	@TeamCompetingId int = null,
+	@Score float = null
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	update.dbo.MatchupEntries
+	set TeamCompetingId = @TeamCompetingId,
+		Score = @Score
+	where Id = @Id;
 END
 GO
 

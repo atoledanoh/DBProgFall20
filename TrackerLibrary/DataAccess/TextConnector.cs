@@ -9,19 +9,17 @@ namespace TrackerLibrary.DataAccess
 {
     public class TextConnector : IDataConnection
     {
-        public PersonModel CreatePerson(PersonModel model)
+        public void CreatePerson(PersonModel model)
         {
             throw new NotImplementedException();
         }
 
-        //TODO - Wire up the CreatePrize for the text file
-        public PrizeModel CreatePrize(PrizeModel model)
+        public void CreatePrize(PrizeModel model)
         {
-            model.Id = 1;
-            return model;
+            throw new NotImplementedException();
         }
 
-        public TeamModel CreateTeam(TeamModel model)
+        public void CreateTeam(TeamModel model)
         {
             throw new NotImplementedException();
         }
@@ -42,6 +40,11 @@ namespace TrackerLibrary.DataAccess
         }
 
         public List<TournamentModel> GetTournamentAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateMatchup(MatchupModel model)
         {
             throw new NotImplementedException();
         }

@@ -20,12 +20,12 @@ namespace TrackerLibrary
                 Connection = sql;
             }
 
-            else if (db == DatabaseType.TextFile)
-            {
-                //TODO - Create text connection
-                TextConnector text = new TextConnector();
-                Connection = text;
-            }
+            //else if (db == DatabaseType.TextFile)
+            //{
+            //    //TODO - Create text connection
+            //    TextConnector text = new TextConnector();
+            //    Connection = text;
+            //}
         }
         public static string ConnString(string name)
         {
