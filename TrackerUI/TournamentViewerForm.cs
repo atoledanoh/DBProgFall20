@@ -145,7 +145,11 @@ namespace TrackerUI
 
         private void lstMatchup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadMatchup((MatchupModel)lstMatchup.SelectedItem);
+            if (lstMatchup.SelectedItem != null)
+            {
+                LoadMatchup((MatchupModel)lstMatchup.SelectedItem);
+            }
+            //LoadMatchup((MatchupModel)lstMatchup.SelectedItem);
         }
 
         private void chkUnplayed_CheckedChanged(object sender, EventArgs e)
