@@ -22,8 +22,8 @@ namespace TrackerUI
 
             //TODO restore original form
             //Application.Run(new CreateTeamForm());
-            Application.Run(new CreateTournamentForm());
-            //Application.Run(new TournamentDashboardForm());
+            //Application.Run(new CreateTournamentForm());
+            Application.Run(new TournamentDashboardForm());
         }
     }
 }

@@ -279,3 +279,67 @@ BEGIN
 	select @Id = SCOPE_IDENTITY();
 END
 GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spTournaments_GetAll
+AS
+BEGIN
+	SET NOCOUNT ON;
+    SELECT * FROM Tournaments
+	where Active = 1;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spPrizes_GetByTournament
+	@TournamentId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+    select p.*
+	from dbo.Prizes p
+	inner join dbo.TournamentPrizes t on p.Id = t.PrizeId
+	where t.TournamentId = @TournamentId;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spTeam_GetByTournament
+	@TournamentId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+    select t.*
+	from dbo.Teams t
+	inner join dbo.TournamentEntries te on t.Id = te.TeamId
+	where te.TournamentId = @TournamentId;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spMatchups_GetByTournament
+	@TournamentId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+    select *
+	from Matchups
+	where TournamentId = @TournamentId
+	order by MatchupRound;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spMatchupEntries_GetByMatchup
+	@MatchupId int
+AS
+BEGIN
+	SET NOCOUNT ON;
+    select *
+	from MatchupEntries
+	where MatchupId = @MatchupId;
+END
+GO
+
+--------------------------------------
+

@@ -20,6 +20,10 @@ namespace TrackerLibrary.Models
         /// </summary>
         public List<MatchupEntryModel> Entries { get; set; } = new List<MatchupEntryModel>();
         /// <summary>
+        /// id from the database used to identify the winner
+        /// </summary>
+        public int WinnerId { get; set; }
+        /// <summary>
         /// the winner of the match
         /// </summary>
         public TeamModel Winner { get; set; }
@@ -27,5 +31,33 @@ namespace TrackerLibrary.Models
         /// which round this match is part of
         /// </summary>
         public int MatchupRound { get; set; }
+        public string DisplayName
+        {
+            get
+            {
+                string output = "";
+                foreach (MatchupEntryModel matchupEntryModel in Entries)
+                {
+                    if (matchupEntryModel.TeamCompeting != null)
+                    {
+                        if (output.Length == 0)
+                        {
+                            output = matchupEntryModel.TeamCompeting.TeamName;
+                        }
+                        else
+                        {
+                            output += $" vs. {matchupEntryModel.TeamCompeting.TeamName} ";
+                        }
+
+                    }
+                    else
+                    {
+                        output = "Matchup not determined yet";
+                        break;
+                    }
+                }
+                return output;
+            }
+        }
     }
 }

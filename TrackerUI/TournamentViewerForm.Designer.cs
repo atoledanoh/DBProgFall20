@@ -79,6 +79,7 @@ namespace TrackerUI
             this.cboRound.Name = "cboRound";
             this.cboRound.Size = new System.Drawing.Size(121, 31);
             this.cboRound.TabIndex = 3;
+            this.cboRound.SelectedIndexChanged += new System.EventHandler(this.cboRound_SelectedIndexChanged);
             // 
             // chkUnplayed
             // 
@@ -99,6 +100,7 @@ namespace TrackerUI
             this.lstMatchup.Name = "lstMatchup";
             this.lstMatchup.Size = new System.Drawing.Size(271, 211);
             this.lstMatchup.TabIndex = 5;
+            this.lstMatchup.SelectedIndexChanged += new System.EventHandler(this.lstMatchup_SelectedIndexChanged);
             // 
             // lblTeamOne
             // 
@@ -193,7 +195,6 @@ namespace TrackerUI
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "TournamentViewerForm";
             this.Text = "Tournament Viewer";
-            this.Load += new System.EventHandler(this.TournamentViewerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
