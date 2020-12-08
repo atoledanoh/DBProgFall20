@@ -32,9 +32,13 @@ namespace TrackerUI
                     txtPrizeAmount.Text,
                     txtPrizePercentage.Text);
 
-                GlobalConfig.Connection.CreatePrize(model);
+                IDataConnection tournamentRepo = SqlFactory.CreateTournamentRepo();
+                tournamentRepo.CreatePrize(model);
+
+
+                //GlobalConfig.Connection.CreatePrize(model);
                 callingForm.PrizeComplete(model);
-                this.Close();
+                Close();
 
                 //txtPlaceName.Text = "";
                 //txtPlaceNumber.Text = "";

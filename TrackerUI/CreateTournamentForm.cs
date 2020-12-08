@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrackerLibrary;
+using TrackerLibrary.DataAccess;
 using TrackerLibrary.Models;
 
 namespace TrackerUI
 {
     public partial class CreateTournamentForm : Form, IPrizeRequester, ITeamRequester
     {
-        List<TeamModel> availableTeams = GlobalConfig.Connection.GetTeamAll();
+        List<TeamModel> availableTeams = SqlFactory.CreateTournamentRepo().GetTeamAll();
         List<TeamModel> selectedTeams = new List<TeamModel>();
         List<PrizeModel> selectedPrizes = new List<PrizeModel>();
 
@@ -56,6 +57,7 @@ namespace TrackerUI
         {
             //open create prize form
             CreatePrizeForm prizeForm = new CreatePrizeForm(this);
+            prizeForm.MdiParent = ActiveForm;
             prizeForm.Show();
         }
 
@@ -76,6 +78,7 @@ namespace TrackerUI
         private void lnkCreateNewTeam_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CreateTeamForm teamForm = new CreateTeamForm(this);
+            teamForm.MdiParent = ActiveForm;
             teamForm.Show();
         }
 
@@ -125,9 +128,14 @@ namespace TrackerUI
             //wire up matchups
             TournamentLogic.CreateRounds(tournamentModel);
 
-            GlobalConfig.Connection.CreateTournament(tournamentModel);
+            IDataConnection tournamentRepo = SqlFactory.CreateTournamentRepo();
+            tournamentRepo.CreateTournament(tournamentModel);
+
+
+            //GlobalConfig.Connection.CreateTournament(tournamentModel);
 
             TournamentViewerForm tournamentViewer = new TournamentViewerForm(tournamentModel);
+            tournamentViewer.MdiParent = ActiveForm;
             tournamentViewer.Show();
             this.Close();
         }

@@ -178,7 +178,7 @@ namespace TrackerUI
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(717, 543);
+            this.ClientSize = new System.Drawing.Size(717, 506);
             this.Controls.Add(this.btnScore);
             this.Controls.Add(this.lblVersus);
             this.Controls.Add(this.txtTeamTwoScore);
@@ -194,9 +194,12 @@ namespace TrackerUI
             this.Controls.Add(this.lblTournamentName);
             this.Controls.Add(this.lblTounament);
             this.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "TournamentViewerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tournament Viewer";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 

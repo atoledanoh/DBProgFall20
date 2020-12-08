@@ -237,9 +237,13 @@ namespace TrackerUI
             this.Controls.Add(this.lblTournamentName);
             this.Controls.Add(this.lblCreateTournament);
             this.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "CreateTournamentForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Tag = "createTournamentFrm";
             this.Text = "Create Tournament";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 

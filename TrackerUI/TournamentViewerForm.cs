@@ -50,16 +50,21 @@ namespace TrackerUI
             rounds.Add(1);
             int currentRound = 1;
 
-            foreach (List<MatchupModel> matchups in tournament.Rounds)
+            if (tournament.Rounds.Count > 0)
             {
-                if (matchups.First().MatchupRound > currentRound)
+                foreach (List<MatchupModel> matchups in tournament.Rounds)
                 {
-                    currentRound = matchups.First().MatchupRound;
-                    rounds.Add(currentRound);
+                    if (matchups.Count > 0)
+                    {
+                        if (matchups.FirstOrDefault().MatchupRound > currentRound)
+                        {
+                            currentRound = matchups.First().MatchupRound;
+                            rounds.Add(currentRound);
+                        }
+                    }
                 }
+                LoadMatchups(1);
             }
-
-            LoadMatchups(1);
         }
 
         private void cboRound_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,14 +76,17 @@ namespace TrackerUI
         {
             foreach (List<MatchupModel> matchups in tournament.Rounds)
             {
-                if (matchups.First().MatchupRound == round)
+                if (matchups.Count > 0)
                 {
-                    selectedMatchups.Clear();
-                    foreach (MatchupModel m in matchups)
+                    if (matchups.First().MatchupRound == round)
                     {
-                        if (m.Winner == null || !chkUnplayed.Checked)
+                        selectedMatchups.Clear();
+                        foreach (MatchupModel m in matchups)
                         {
-                            selectedMatchups.Add(m);
+                            if (m.Winner == null || !chkUnplayed.Checked)
+                            {
+                                selectedMatchups.Add(m);
+                            }
                         }
                     }
                 }

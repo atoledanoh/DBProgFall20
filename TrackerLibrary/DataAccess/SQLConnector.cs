@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrackerLibrary.Models;
+using CM = System.Configuration.ConfigurationManager;
 
 namespace TrackerLibrary.DataAccess
 {
@@ -20,7 +22,7 @@ namespace TrackerLibrary.DataAccess
         /// <returns>person information with unique identifiers</returns>
         public void CreatePerson(PersonModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 var p = new DynamicParameters();
                 p.Add("@FirstName", model.FirstName);
@@ -37,7 +39,7 @@ namespace TrackerLibrary.DataAccess
 
         public void CreatePrize(PrizeModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 var p = new DynamicParameters();
                 p.Add("@PlaceNumber", model.PlaceNumber);
@@ -54,7 +56,7 @@ namespace TrackerLibrary.DataAccess
 
         public void CreateTeam(TeamModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 var p = new DynamicParameters();
                 p.Add("@TeamName", model.TeamName);
@@ -77,7 +79,7 @@ namespace TrackerLibrary.DataAccess
 
         public void CreateTournament(TournamentModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 SaveTournament(connection, model);
                 SaveTournamentPrizes(connection, model);
@@ -176,9 +178,23 @@ namespace TrackerLibrary.DataAccess
         public List<PersonModel> GetPersonAll()
         {
             List<PersonModel> output;
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 output = connection.Query<PersonModel>("dbo.spPeople_GetAll").ToList();
+            }
+            return output;
+        }
+
+        public List<PersonModel> GetPersonSearch(PersonModel model)
+        {
+            List<PersonModel> output;
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
+            {
+                var p = new DynamicParameters();
+                p.Add("@lName", model.LastName);
+
+                output = connection.Query<PersonModel>
+                    ("dbo.spPerson_Search", p, commandType: CommandType.StoredProcedure).ToList();
             }
             return output;
         }
@@ -186,7 +202,7 @@ namespace TrackerLibrary.DataAccess
         public List<TeamModel> GetTeamAll()
         {
             List<TeamModel> output;
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 output = connection.Query<TeamModel>("dbo.spTeams_GetAll").ToList();
 
@@ -205,7 +221,7 @@ namespace TrackerLibrary.DataAccess
         public List<TournamentModel> GetTournamentAll()
         {
             List<TournamentModel> output;
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 //getting the list
                 output = connection.Query<TournamentModel>("dbo.spTournaments_GetAll").ToList();
@@ -289,7 +305,7 @@ namespace TrackerLibrary.DataAccess
 
         public void UpdateMatchup(MatchupModel model)
         {
-            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.ConnString(db)))
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
             {
                 //dbo.spMatchups_Update
                 var p = new DynamicParameters();
@@ -314,6 +330,44 @@ namespace TrackerLibrary.DataAccess
                         connection.Execute("dbo.spMatchupEntries_Update", p, commandType: CommandType.StoredProcedure);
                     }
                 }
+            }
+        }
+
+        public List<PrizeModel> GetPrizeAll()
+        {
+            List<PrizeModel> output;
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
+            {
+                output = connection.Query<PrizeModel>("dbo.spPrizes_GetAll").ToList();
+            }
+            return output;
+        }
+
+        public void DeleltePrize(PrizeModel model)
+        {
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
+            {
+                var p = new DynamicParameters();
+                p.Add("@Id", model.Id);
+
+                connection.Query<PersonModel>
+                    ("dbo.spPrizes_Delete", p, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public void UpdatePrize(PrizeModel model)
+        {
+            using (IDbConnection connection = new SqlConnection(CM.ConnectionStrings["Tournaments"].ConnectionString))
+            {
+                var p = new DynamicParameters();
+                p.Add("@Id", model.Id);
+                p.Add("@placeNum", model.PlaceNumber);
+                p.Add("@placeName", model.PlaceName);
+                p.Add("@prizeAmount", model.PrizeAmount);
+                p.Add("@prizePercentage", model.PrizePercentage);
+
+                connection.Query<PersonModel>
+                    ("dbo.spPrizes_Update", p, commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

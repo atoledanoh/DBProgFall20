@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrackerLibrary.DataAccess;
 using TrackerLibrary.Models;
 
 namespace TrackerLibrary
@@ -34,7 +35,8 @@ namespace TrackerLibrary
             //    GlobalConfig.Connection.UpdateMatchup(x);
             //}
 
-            toScore.ForEach(x => GlobalConfig.Connection.UpdateMatchup(x));
+            IDataConnection tournamentRepo = SqlFactory.CreateTournamentRepo();
+            toScore.ForEach(x => tournamentRepo.UpdateMatchup(x));
         }
 
         private static void AdvanceWinners(List<MatchupModel> models, TournamentModel tournament)
@@ -52,7 +54,8 @@ namespace TrackerLibrary
                                 if (me.ParentMatchup.Id == m.Id)
                                 {
                                     me.TeamCompeting = m.Winner;
-                                    GlobalConfig.Connection.UpdateMatchup(rm);
+                                    IDataConnection tournamentRepo = SqlFactory.CreateTournamentRepo();
+                                    tournamentRepo.UpdateMatchup(rm);
                                 }
                             }
                         }

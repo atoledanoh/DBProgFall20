@@ -246,9 +246,13 @@ namespace TrackerUI
             this.Controls.Add(this.lblTeamName);
             this.Controls.Add(this.lblCeateTeam);
             this.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "CreateTeamForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Tag = "createTeamFrm";
             this.Text = "Create Team";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.grpAddNewMember.ResumeLayout(false);
             this.grpAddNewMember.PerformLayout();
             this.ResumeLayout(false);

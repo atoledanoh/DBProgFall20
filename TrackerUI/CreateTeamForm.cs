@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrackerLibrary;
+using TrackerLibrary.DataAccess;
 using TrackerLibrary.Models;
 
 namespace TrackerUI
 {
     public partial class CreateTeamForm : Form
     {
-        private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPersonAll();
+
+        private List<PersonModel> availableTeamMembers = SqlFactory.CreateTournamentRepo().GetPersonAll();
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
         private ITeamRequester callingForm;
         public CreateTeamForm(ITeamRequester caller)
@@ -60,7 +62,7 @@ namespace TrackerUI
                 p.EmailAdress = txtEmail.Text;
                 p.PhoneNumber = txtPhoneNumber.Text;
 
-                GlobalConfig.Connection.CreatePerson(p);
+                SqlFactory.CreateTournamentRepo().CreatePerson(p);
 
                 selectedTeamMembers.Add(p);
 
@@ -133,7 +135,10 @@ namespace TrackerUI
             t.TeamName = txtTeamName.Text;
             t.TeamMembers = selectedTeamMembers;
 
-            GlobalConfig.Connection.CreateTeam(t);
+            IDataConnection tournamentRepo = SqlFactory.CreateTournamentRepo();
+            tournamentRepo.CreateTeam(t);
+
+            //GlobalConfig.Connection.CreateTeam(t);
             callingForm.TeamComplete(t);
             this.Close();
         }

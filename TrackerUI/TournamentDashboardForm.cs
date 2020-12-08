@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrackerLibrary;
+using TrackerLibrary.DataAccess;
 using TrackerLibrary.Models;
 
 namespace TrackerUI
 {
     public partial class TournamentDashboardForm : Form
     {
-        List<TournamentModel> tournaments = GlobalConfig.Connection.GetTournamentAll();
+        List<TournamentModel> tournaments = SqlFactory.CreateTournamentRepo().GetTournamentAll();
         public TournamentDashboardForm()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace TrackerUI
         private void btnCreateTournament_Click(object sender, EventArgs e)
         {
             CreateTournamentForm tournamentForm = new CreateTournamentForm();
+            tournamentForm.MdiParent = ActiveForm; 
             tournamentForm.Show();
         }
 
@@ -37,6 +39,7 @@ namespace TrackerUI
         {
             TournamentModel tournamentModel = (TournamentModel)cboLoadExistingTournament.SelectedItem;
             TournamentViewerForm tournamentViewerForm = new TournamentViewerForm(tournamentModel);
+            tournamentViewerForm.MdiParent = ActiveForm;
             tournamentViewerForm.Show();
         }
     }

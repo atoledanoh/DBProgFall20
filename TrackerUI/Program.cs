@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrackerLibrary;
+using TrackerLibrary.DataAccess;
 
 namespace TrackerUI
 {
@@ -15,15 +16,16 @@ namespace TrackerUI
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+            SqlFactory.TournamentRepoFunc = (() => new SQLConnector());
+            //Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //initialize the database connections
-            TrackerLibrary.GlobalConfig.InitializeConnections(DatabaseType.Sql);
 
-            //TODO restore original form
-            //Application.Run(new CreateTeamForm());
-            //Application.Run(new CreateTournamentForm());
-            Application.Run(new TournamentDashboardForm());
+            //Application.Run(new MainContainer());
+
+            SplashScreen splashScreen = new SplashScreen();
+            splashScreen.ShowDialog();
+
+            Application.Run(new MainContainer());
         }
     }
 }

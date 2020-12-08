@@ -154,9 +154,13 @@ namespace TrackerUI
             this.Controls.Add(this.lblPlaceNumber);
             this.Controls.Add(this.lblCreatePrize);
             this.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "CreatePrizeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Tag = "createPrizeFrm";
             this.Text = "Create Prize";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 
