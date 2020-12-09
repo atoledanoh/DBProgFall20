@@ -10,6 +10,13 @@ GO
 
 USE Tournaments;
 
+CREATE TABLE  LoginRecords(
+	Id int IDENTITY NOT NULL,
+	UserName varchar(50) NOT NULL,
+	Password varchar(50) NOT NULL,
+	PRIMARY KEY (Id)
+);
+
 CREATE TABLE Prizes(
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[PlaceNumber] [int] NOT NULL,
@@ -84,12 +91,27 @@ CREATE TABLE MatchupEntries(
 --TESTING INSERTS SECTION
 --------------------------------------
 
+INSERT INTO dbo.LoginRecords(UserName, Password)
+	VALUES
+	('root', 'root'),
+	('user1 ', 'baconbacon'),
+	('user2', 'password')
+	;
+GO
+
+
 INSERT INTO dbo.Prizes (PlaceNumber, PlaceName, PrizeAmount, PrizePercentage)
 	VALUES
 	(1, 'First Place', 100, 0),
 	(2, 'Second Place', 50, 0),
-	(3, 'Third Place', 25, 0)
+	(3, 'Third Place', 25, 0),
+	(4, 'Fourth Place', 12, 0),
+	(1, 'First', 0, 40),
+	(2, 'Second', 0, 20),
+	(3, 'Third', 0, 10),
+	(4, 'Fourth', 0, 5)
 	;
+GO
 
 INSERT INTO dbo.People(FirstName, LastName)
 	VALUES
@@ -99,7 +121,18 @@ INSERT INTO dbo.People(FirstName, LastName)
 	('Izaac', 'Gordon'),
 	('Artur', 'Grimes'),
 	('Amara', 'Nichols'),
-	('Alistair', 'Fischer')
+	('Alistair', 'Fischer'),
+	('Alfreds Futterkiste','Maria Anders'),
+	('Blauer See Delikatessen','Hanna Moos'),
+	('Frankenversand','Peter Franken'),
+	('Hanari Carnes','Mario Pontes'),
+	('Lehmanns Marktstand','Renate Messner'),
+	('Maison Dewey','Catherine Dewey'),
+	('Morgenstern Gesundkost','Alexander Feuer'),
+	('Reggiani Caseifici','Maurizio Moroni'),
+	('Simons bistro','Jytte Petersen'),
+	('Wartian Herkku','Pirkko Koskitalo'),
+	('Wilman Kala','Matti Karttunen')
 	;
 GO
 
@@ -373,3 +406,53 @@ GO
 
 --------------------------------------
 
+CREATE PROCEDURE dbo.spPerson_Search
+	@lName VARCHAR(MAX)
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT *
+	FROM People
+	WHERE People.LastName
+	LIKE '%'+@lName+'%';
+END
+GO
+--------------------------------------
+CREATE PROCEDURE dbo.spPrizes_GetAll
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SELECT * FROM Prizes;
+
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spPrizes_Update
+	@Id INT,
+	@placeNum INT,
+	@placeName VARCHAR(MAX),
+	@prizeAmount MONEY,
+	@prizePercentage FLOAT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE Prizes SET PlaceNumber = @placeNum,PlaceName = @placeName,PrizeAmount = @prizeAmount,PrizePercentage = @prizePercentage
+    WHERE Prizes.Id = @Id;
+END
+GO
+
+--------------------------------------
+CREATE PROCEDURE dbo.spPrizes_Delete
+@Id INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DELETE FROM Prizes WHERE Prizes.Id = @Id;
+END
+GO
+
+--------------------------------------

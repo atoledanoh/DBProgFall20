@@ -20,11 +20,9 @@ namespace TrackerUI
             //Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            //Application.Run(new MainContainer());
-
             //SplashScreen splashScreen = new SplashScreen();
             //splashScreen.ShowDialog();
-
+            Application.Run(new Login());
             Application.Run(new MainContainer());
         }
     }
