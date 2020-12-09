@@ -56,8 +56,6 @@ namespace TrackerUI
             this.viewMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +74,7 @@ namespace TrackerUI
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +85,6 @@ namespace TrackerUI
             this.fileMenu,
             this.editMenu,
             this.viewMenu,
-            this.toolsMenu,
             this.windowsMenu,
             this.iTToolStripMenuItem,
             this.searchToolStripMenuItem,
@@ -307,20 +305,6 @@ namespace TrackerUI
             this.statusBarToolStripMenuItem.Text = "&Status Bar";
             this.statusBarToolStripMenuItem.Click += new System.EventHandler(this.StatusBarToolStripMenuItem_Click);
             // 
-            // toolsMenu
-            // 
-            this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
-            this.toolsMenu.Name = "toolsMenu";
-            this.toolsMenu.Size = new System.Drawing.Size(46, 20);
-            this.toolsMenu.Text = "&Tools";
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.optionsToolStripMenuItem.Text = "&Options";
-            // 
             // windowsMenu
             // 
             this.windowsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -379,7 +363,8 @@ namespace TrackerUI
             // iTToolStripMenuItem
             // 
             this.iTToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.assignmentsToolStripMenuItem});
+            this.assignmentsToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.iTToolStripMenuItem.Name = "iTToolStripMenuItem";
             this.iTToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.iTToolStripMenuItem.Text = "Actions";
@@ -457,6 +442,14 @@ namespace TrackerUI
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.aboutToolStripMenuItem.Tag = "abouFormbtn";
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
+            // 
             // MainContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -511,8 +504,6 @@ namespace TrackerUI
         private System.Windows.Forms.ToolStripMenuItem viewMenu;
         private System.Windows.Forms.ToolStripMenuItem toolBarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statusBarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolsMenu;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsMenu;
         private System.Windows.Forms.ToolStripMenuItem newWindowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cascadeToolStripMenuItem;
@@ -527,6 +518,7 @@ namespace TrackerUI
         private System.Windows.Forms.ToolStripMenuItem browseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem personToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem prizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

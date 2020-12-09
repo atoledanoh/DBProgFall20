@@ -60,6 +60,9 @@ namespace TrackerUI
                 case "PrizeForm":
                     childForm = new BrowsePrize();
                     break;
+                case "abouFormbtn":
+                    childForm = new AboutBox1();
+                    break;
             }
             return childForm;
         }

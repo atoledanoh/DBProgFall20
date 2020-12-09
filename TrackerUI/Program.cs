@@ -22,8 +22,8 @@ namespace TrackerUI
 
             //Application.Run(new MainContainer());
 
-            SplashScreen splashScreen = new SplashScreen();
-            splashScreen.ShowDialog();
+            //SplashScreen splashScreen = new SplashScreen();
+            //splashScreen.ShowDialog();
 
             Application.Run(new MainContainer());
         }
