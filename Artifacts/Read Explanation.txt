@@ -1,0 +1,5 @@
+Not sure why that happened when retesting the app
+But after the modification it runned correctly again, maybe a mistake in the recreation of the tables, but for testing puroposes the modification has to be done anyways. 
+
+Refer to the image: 
+modifyBeforeRunningTheApplication.png
