@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using TrackerLibrary.DataAccess;
 using TrackerLibrary.Models;
 
 namespace TrackerUI
 {
-   
+
     public partial class BrowsePrize : Form
     {
         private List<PrizeModel> prizeList;
@@ -149,7 +148,8 @@ namespace TrackerUI
         {
             try
             {
-                if(prizeToDisplay != null) {
+                if (prizeToDisplay != null)
+                {
                     SqlFactory.CreateTournamentRepo().DeleltePrize(prizeToDisplay);
                     MessageBox.Show("Record Has been deleted");
                     clearControls();
@@ -157,7 +157,8 @@ namespace TrackerUI
                     loadFirstRecord();
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Failed To Execute");
             }
@@ -186,7 +187,7 @@ namespace TrackerUI
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Failed To Execute");
             }

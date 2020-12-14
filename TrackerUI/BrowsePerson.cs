@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrackerLibrary.DataAccess;
 using TrackerLibrary.Models;
@@ -102,7 +96,7 @@ namespace TrackerUI
 
         private void setPerson()
         {
-            if(personList.Count > 0)
+            if (personList.Count > 0)
             {
                 personToDisplay = personList[currentRecord];
                 setSlectedPerson();
@@ -111,7 +105,7 @@ namespace TrackerUI
 
         private void setSlectedPerson()
         {
-            if(personToDisplay != null)
+            if (personToDisplay != null)
             {
                 firstNameTxt.Text = personToDisplay.FirstName;
                 lastNameTxt.Text = personToDisplay.LastName;
@@ -122,7 +116,7 @@ namespace TrackerUI
 
         private void NextPrevButtonManager()
         {
-            if(currentRecord > firstRecord)
+            if (currentRecord > firstRecord)
             {
                 prevBtn.Enabled = true;
             }

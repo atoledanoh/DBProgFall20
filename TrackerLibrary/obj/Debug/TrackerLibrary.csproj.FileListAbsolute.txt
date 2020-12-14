@@ -16,15 +16,6 @@ C:\Users\Alejandro\Documents\GitHub\DBProgrammingProjectFall20\TrackerLibrary\ob
 C:\Users\Alejandro\Documents\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.csproj.CopyComplete
 C:\Users\Alejandro\Documents\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.dll
 C:\Users\Alejandro\Documents\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.pdb
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\TrackerLibrary.dll
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\TrackerLibrary.pdb
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\Dapper.dll
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\Dapper.xml
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.csprojAssemblyReference.cache
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.csproj.CoreCompileInputs.cache
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.csproj.CopyComplete
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.dll
-C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.pdb
 C:\GitHub\dbproject2020\TrackerLibrary\bin\Debug\TrackerLibrary.dll
 C:\GitHub\dbproject2020\TrackerLibrary\bin\Debug\TrackerLibrary.pdb
 C:\GitHub\dbproject2020\TrackerLibrary\bin\Debug\Dapper.dll
@@ -34,3 +25,11 @@ C:\GitHub\dbproject2020\TrackerLibrary\obj\Debug\TrackerLibrary.csproj.CoreCompi
 C:\GitHub\dbproject2020\TrackerLibrary\obj\Debug\TrackerLibrary.csproj.CopyComplete
 C:\GitHub\dbproject2020\TrackerLibrary\obj\Debug\TrackerLibrary.dll
 C:\GitHub\dbproject2020\TrackerLibrary\obj\Debug\TrackerLibrary.pdb
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\TrackerLibrary.dll
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\TrackerLibrary.pdb
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\Dapper.dll
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\bin\Debug\Dapper.xml
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.csproj.CoreCompileInputs.cache
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.csproj.CopyComplete
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.dll
+C:\GitHub\DBProgrammingProjectFall20\TrackerLibrary\obj\Debug\TrackerLibrary.pdb

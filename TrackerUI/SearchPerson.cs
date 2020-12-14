@@ -11,7 +11,7 @@ namespace TrackerUI
         public SearchPerson()
         {
             InitializeComponent();
-            
+
         }
 
         private void SearchPerson_Load(object sender, EventArgs e)
@@ -25,15 +25,15 @@ namespace TrackerUI
             {
                 string searchValue = searchInputTxt.Text;
                 searchPersonObj.LastName = searchValue;
-                var returnedValue = 
+                var returnedValue =
                     SqlFactory.CreateTournamentRepo().GetPersonSearch(searchPersonObj);
                 personDgv.DataSource = returnedValue;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show
                    (ex.GetType().ToString(), "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }       
+        }
     }
 }
